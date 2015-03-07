@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head/>
+<h:body>
+
+    <h:form>
+        <p:chart type="pie" widgetVar="browserChart" model="#{browserStatsView.pieModel}"
+                 style="width:400px;height:300px"/>
+
+        <p:socket onMessage="handleMessage" channel="/browser"/>
+    </h:form>
+
+    <h:outputScript>
+        //<![CDATA[
+            function handleMessage(data) {
+                var series = [],
+                        chart = PF('browserChart').plot;
+
+                for (var key in data) {
+                    series.push([key, data[key]]);
+                }
+
+                chart.series[0].data = series;
+                chart.replot();
+            }
+        //]]>
+    </h:outputScript>
+
+</h:body>
+</html>

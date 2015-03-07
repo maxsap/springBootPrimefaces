@@ -1,0 +1,94 @@
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:p="http://primefaces.org/ui" xmlns="http://www.w3c.org/1999/xhtml"
+        xmlns:sec="http://www.springframework.org/security/tags"
+        >
+
+    <h:head/>
+    <h:body>
+        <h:form prependId="false">
+            <h:panelGrid
+                    columns="3">
+
+                <p:outputLabel for="@next" value="small number (less than 10)"/>
+                <p:inputText value="#{smallNumberBean.smallNumber}" required="true" label="small number"
+                             id="smallNumberID"/>
+                <p:message for="@previous"/>
+                <p:commandButton validateClient="true" value="validate" actionListener="#{smallNumberBean.showErrors}"
+                                 update="@parent:@parent"/>
+                <br/>
+            </h:panelGrid>
+            <p:commandButton value="save new TestEntity" actionListener="#{entityController.saveTestEntity()}"
+                             process="@this"
+                             rendered="#{sec:areAnyGranted('admin, ADMIN')}"
+                             update="@parent"/>
+
+            <p:ajaxExceptionHandler type="org.springframework.security.access.AccessDeniedException"
+                                    update="exceptionDialog"
+                                    onexception="PF('exceptionDialog').show();" />
+
+            <p:dialog id="exceptionDialog" header="Exception '#{pfExceptionHandler.type}' occured!" widgetVar="exceptionDialog"
+                      height="500px">
+                Message: #{pfExceptionHandler.message} <br/>
+                StackTrace: <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" /> <br />
+
+                <p:button onclick="document.location.href = document.location.href;"
+                          value="Reload!"
+                          rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" />
+            </p:dialog>
+
+            <br/>
+
+            <p:dataTable var="entity" value="#{entityRepository.findAll()}">
+                <f:facet name="header">
+                    Entities and nested entities
+                </f:facet>
+
+                <p:columnGroup type="header">
+                    <p:row>
+                        <p:column/>
+                        <p:column headerText="Id"/>
+                        <p:column headerText="Name"/>
+                        <p:column headerText="Age"/>
+
+                    </p:row>
+                </p:columnGroup>
+
+                <p:subTable var="nested" value="#{entity.nestedEntitiesBatch10}">
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column headerText="Entity"/>
+                            <p:column headerText="#{entity.id}"/>
+                            <p:column headerText="#{entity.name}"/>
+                            <p:column headerText="#{entity.age}"/>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="4" headerText="NestedEntities"/>
+                        </p:row>
+                    </p:columnGroup>
+                    <p:column/>
+                    <p:column>
+                        <h:outputText value="#{nested.id}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{nested.nestedName}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{nested.nestedAge}"/>
+                    </p:column>
+                </p:subTable>
+            </p:dataTable>
+
+
+            <a href="/thymeleaf">got to thymeleaf view</a>
+            <br/>
+            <a href="/ui/admin.xhtml">got to Admin</a>
+            <br/>
+            <a href="/api/health/unprotected">Jersey unprotected</a>
+            <br/>
+            <a href="/api/health/protected">Jersey protected</a>
+            <br/>
+            <a href="/rest/entity/findAll">Spring REST</a>
+
+        </h:form>
+    </h:body>
+</f:view>

@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+	<cc:interface>
+		<cc:attribute name="userId" required="true" />
+		<cc:attribute name="isEditable" required="false" default="false" />
+	</cc:interface>
+
+	<cc:implementation>
+		<h:form>
+			<p:messages showIcon="false" />
+
+			<h:panelGrid id="confirmation" columns="2" cellpadding="4"
+				rendered="#{userBean.user != null}">
+				<h:outputText value="First Name:" />
+				<p:inputText value="#{userBean.user.firstName}"
+					disabled="#{!cc.attrs.isEditable}" />
+
+				<h:outputText value="Last Name:" />
+				<p:inputText value="#{userBean.user.lastName}"
+					disabled="#{!cc.attrs.isEditable}" />
+
+				<h:outputText value="Email:" />
+				<p:inputText value="#{userBean.user.email}"
+					disabled="#{!cc.attrs.isEditable}" />
+
+				<h:outputText value="Passed Post Ident:" />
+				<p:selectBooleanCheckbox value="#{userBean.user.enabled}"
+					disabled="#{!cc.attrs.isEditable}" />
+			</h:panelGrid>
+
+			<p:commandButton value="Submit changes" ajax="true" icon="ui-icon-check"
+				rendered="#{cc.attrs.isEditable and userBean.user != null}"
+				actionListener="#{userBean.onSubmitButtonClick()}" styleClass="ui-priority-primary"/>
+		</h:form>
+	</cc:implementation>
+</ui:composition>

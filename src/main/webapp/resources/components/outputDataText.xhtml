@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+	<cc:interface>
+		<cc:attribute name="value" required="true" />
+		<cc:attribute name="escape" required="false" />
+	</cc:interface>
+
+	<cc:implementation>
+		<p:outputLabel value="#{cc.attrs.value}" escape="#{cc.attrs.escape}" rendered="#{cc.attrs.value != null}" />
+		<p:outputLabel value="NULL" style="font-weight:normal" rendered="#{cc.attrs.value == null}" />
+	</cc:implementation>
+</ui:composition>

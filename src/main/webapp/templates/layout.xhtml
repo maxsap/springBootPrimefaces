@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Admin Panel</title>
+	<meta charset="utf-8" />
+	<link rel="icon" href="/RestService/admin/javax.faces.resource/default/images/favicon.png"/>
+	<h:outputStylesheet library="css" name="default.css" />
+	<h:outputStylesheet library="css" name="defTheme.css" />
+</h:head>
+
+<h:body>
+	<!-- header -->
+	<div id="header">
+
+		<div class="logout">#{loginController.admin.email}
+			<h:form id="logoutForm">
+				<h:commandLink action="#{loginController.logout()}" value="↪ Sign out" />
+			</h:form>
+		</div>
+	</div>
+	
+	<!-- sidebar -->
+	<div id="sidebar">
+		<ui:include src="sidebar.xhtml"/>
+	</div>
+
+	<!-- content -->
+	<div id="content">
+		<ui:insert name="content" />
+	</div>
+
+	<!-- ajax progress bar -->
+	<p:ajaxStatus>
+		<f:facet name="start">
+			<div id="ajaxstatus"></div>
+		</f:facet>
+	</p:ajaxStatus>
+</h:body>
+</html>

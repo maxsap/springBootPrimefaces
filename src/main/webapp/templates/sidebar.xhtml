@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ul>
+		<!-- admin call session -->
+		<!-- <li><span>Admin call session</span>
+			<ul>
+				
+				<li	class="#{view.viewId == '/ui/call/new.xhtml' ? 'active' : ''}">
+					<h:link value="new call" outcome="/ui/call/new.xhtml" />
+				</li>
+				<ui:repeat value="#{userCallSessionController.getUserCallSessionList()}" var="userCallSession">
+					<li	class="#{userCallSession.userId == userCallSessionController.current.userId and view.viewId == '/ui/call/active.xhtml' ? 'active' : ''}">
+						<h:link value="#{userCallSession.userDisplayName}"
+							outcome="/ui/call/active.xhtml">
+							<f:param name="userId" value="#{userCallSession.userId}" />
+						</h:link>
+					</li>
+				</ui:repeat>
+			</ul>
+		</li> -->
+		
+		<!-- browse data -->
+<!-- 		<li><span>KYC</span> -->
+<!-- 			<ul> -->
+<!-- 				<li class="#{view.viewId == '/ui/postIdentView.xhtml' ? 'active' : ''}"> -->
+<!-- 					<h:link value="POSTIDENT" outcome="/ui/postIdentView.xhtml" /> -->
+<!-- 				</li> -->
+<!-- 			</ul> -->
+<!-- 		</li> -->
+
+		<!-- browse data -->
+		<li><span>User data</span>
+			<ul>
+				<li class="#{view.viewId == '/table/users.xhtml' ? 'active' : ''}">
+					<h:link value="Users" outcome="/table/users.xhtml" />
+				</li>
+				<li class="#{view.viewId == '/table/userStatuses.xhtml' ? 'active' : ''}">
+					<h:link value="User statuses" outcome="/table/userStatuses.xhtml" />
+				</li>
+				<li class="#{view.viewId == '/table/transactions.xhtml' ? 'active' : ''}">
+					<h:link value="Transactions" outcome="/table/transactions.xhtml" />
+				</li>
+				<!-- <li class="#{view.viewId == '/table/userCalls.xhtml' ? 'active' : ''}">
+					<h:link value="User calls" outcome="/table/userCalls.xhtml" />
+				</li> -->
+			</ul>
+		</li>
+		
+		<!-- browse data -->
+		<li><span>Admin data</span>
+			<ul>
+				<li class="#{view.viewId == '/table/adminLogs.xhtml' ? 'active' : ''}">
+					<h:link value="Admin logs" outcome="/table/adminLogs.xhtml" />
+				</li>
+				<h:panelGroup rendered="#{loginController.admin.role == 'SUPER_ADMIN'}">
+					<li class="#{view.viewId == '/table/admins.xhtml' ? 'active' : ''}">
+						<h:link value="Admins" outcome="/table/admins.xhtml" />
+					</li>
+				</h:panelGroup>
+			</ul>
+		</li>
+	</ul>
+
+</ui:composition>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        version="2.2">
+    <application>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <message-bundle>JsfMessageResources</message-bundle>
+        <el-resolver>org.primefaces.application.exceptionhandler.PrimeExceptionHandlerELResolver</el-resolver>
+    </application>
+    
+    <factory>
+        <exception-handler-factory>
+            org.primefaces.application.exceptionhandler.PrimeExceptionHandlerFactory
+        </exception-handler-factory>
+        <exception-handler-factory>com.boot.pf.helper.ExceptionHandlerFactory</exception-handler-factory>
+    </factory>
+
+    <!-- <converter>
+         <converter-id>integerConverter</converter-id>
+         <converter-class>com.boot.pf.helper.IntegerConverter</converter-class>
+     </converter>
+     <converter>
+         <converter-id>longConverter</converter-id>
+         <converter-class>com.boot.pf.helper.LongConverter</converter-class>
+     </converter> -->
+
+
+</faces-config>
