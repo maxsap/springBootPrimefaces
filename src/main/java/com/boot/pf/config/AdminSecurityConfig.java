@@ -32,7 +32,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private UserRepository userRepository;
     
-    /*@Override
+    @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers(
@@ -43,7 +43,7 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                         , "/404.html"
                         , "/500.html"
                 );
-    }*/
+    }
 
     @Override
     @Order(1)
@@ -59,11 +59,11 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/ui/admin.xhtml").hasAnyAuthority("admin", "ADMIN")
                 .antMatchers("/thymeleaf").hasAnyAuthority("admin", "ADMIN")
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/ui/index.xhtml")
+                .defaultSuccessUrl("/ui/index.xhtml", true)
                 .failureUrl("/login?error=1")
                 .permitAll()
                 .and()

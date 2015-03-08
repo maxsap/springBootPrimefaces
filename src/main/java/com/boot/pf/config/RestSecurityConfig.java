@@ -41,9 +41,9 @@ import javax.inject.Inject;
 /**
  * Created by Maximos on 3/6/2015.
  */
-@Configuration
-@EnableResourceServer
-@Order(2)
+//@Configuration
+//@EnableResourceServer
+//@Order(2)
 public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -53,17 +53,17 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
     @Inject
     private PasswordEncoder passwordEncoder;
 
-    @Bean
+    //@Bean
     ApplicationListener<AbstractAuthorizationEvent> loggerBean() {
         return new AuthenticationLoggerListener();
     }
 
-    @Bean
+    //@Bean
     AccessDeniedHandler accessDeniedHandler() {
         return new AccessDeniedExceptionHandler();
     }
 
-    @Bean
+    //@Bean
     AuthenticationEntryPoint entryPointBean() {
         return new UnauthorizedEntryPoint();
     }
@@ -136,8 +136,8 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Configuration
-    @EnableAuthorizationServer
+    //@Configuration
+    //@EnableAuthorizationServer
     protected static class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
         private static final String API_RESOURCE = "API-RESOURCE";
@@ -153,7 +153,7 @@ public class RestSecurityConfig extends WebSecurityConfigurerAdapter {
         private AuthenticationManager authenticationManager;
 
 
-        @Bean
+        //@Bean
         public JwtAccessTokenConverter accessTokenConverter() {
             return new JwtAccessTokenConverter();
         }
